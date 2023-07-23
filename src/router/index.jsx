@@ -5,7 +5,7 @@ import { AppRoutes } from "./app.routes";
 export function Routes() {
   return (
     <BrowserRouter>
-      {2 + 2 !== 4 ? <AppRoutes /> : <AuthRoutes />}
+      {2 + 2 === 4 ? <AppRoutes /> : <AuthRoutes />}
     </BrowserRouter>
   );
 }
