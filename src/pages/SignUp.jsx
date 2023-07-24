@@ -1,9 +1,36 @@
+import { useState } from "react";
 import logo from "../assets/logo.svg";
 import { Input } from "../components/Input";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { api } from "../services/api";
 
 export function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  async function handleSignUp() {
+    try {
+      setLoading(true);
+      await api.post("/users", { name, email, password });
+      setLoading(false);
+      alert("Usuário cadastrado com sucesso.");
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Não foi possível se cadastrar.");
+      }
+    }
+  }
+
   return (
     <div className="flex h-screen w-screen items-center justify-evenly">
       <div className="hidden md:flex">
@@ -24,6 +51,7 @@ export function SignUp() {
             id="register-name"
             type="text"
             placeholder="Seu nome completo"
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
@@ -33,6 +61,7 @@ export function SignUp() {
             id="register-email"
             type="email"
             placeholder="exemplo@email.com"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -42,11 +71,15 @@ export function SignUp() {
             id="register-password"
             type="password"
             placeholder="No mínimo 8 caracteres."
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <button className="h-12 w-full rounded-sm bg-tomato-200 hover:bg-tomato-100">
-          Entrar
+        <button
+          className="h-12 w-full rounded-sm bg-tomato-200 hover:bg-tomato-100"
+          onClick={handleSignUp}
+        >
+          {loading ? "Cadastrando..." : "Cadastrar"}
         </button>
         <Link
           to={-1}

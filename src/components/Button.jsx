@@ -1,11 +1,14 @@
-export function Button(props) {
+export function Button({ type, bgColor, icon: Icon, title, ...rest }) {
   return (
     <button
-      type={props.type}
-      className="flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-tomato-200 hover:bg-tomato-100"
+      type={type}
+      className={`flex h-12 w-full items-center justify-center gap-2 rounded-sm ${
+        bgColor || "bg-tomato-200"
+      } hover:opacity-80`}
+      {...rest}
     >
-      {props.icon && props.icon}
-      {props.title}
+      {Icon && Icon}
+      {title}
     </button>
   );
 }

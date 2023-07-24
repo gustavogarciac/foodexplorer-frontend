@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import DishImage from "../assets/Dish.png";
 import { Minus, Plus, Receipt } from "lucide-react";
+import { Counter } from "../components/Counter";
 
 export function Details() {
   const admin = false;
@@ -59,11 +60,7 @@ export function Details() {
             {/* CTA */}
             {!admin ? (
               <div className="mt-5 flex items-center justify-center gap-4 md:justify-evenly">
-                <div className="flex cursor-pointer items-center gap-3 text-3xl font-medium">
-                  <Plus className="transition-all hover:scale-125 hover:text-green-700" />
-                  <span className="cursor-default">01</span>
-                  <Minus className="transition-all hover:scale-125 hover:text-tomato-300" />
-                </div>
+                <Counter />
 
                 <div className="w-[200px]">
                   <Button title={`pedir R$25,00`} icon={<Receipt />} />

@@ -6,11 +6,11 @@ import { TagInput } from "../components/TagInput";
 import { Textarea } from "../components/Textarea";
 import { Button } from "../components/Button";
 import { Footer } from "../components/Footer";
-
-import { api } from "../services/api";
 import { useState } from "react";
+import { api } from "../services/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-export function New() {
+export function Edit() {
   const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
@@ -21,24 +21,47 @@ export function New() {
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
-  async function handleNewDish() {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  async function handleUpdateDish() {
     try {
       setLoading(true);
-      await api.post("/dishes", {
+      await api.put(`/dishes/${params.id}`, {
         name,
         category,
         ingredients,
         price: Number(price),
         description,
       });
-      alert("Prato criado com sucesso!");
+      alert("Prato atualizado com sucesso!");
       setLoading(false);
     } catch (error) {
       setLoading(false);
       if (error.response) {
         return alert(error.response.data.message);
       } else {
-        return alert("Não foi possível criar este prato!");
+        return alert("Não foi possível atualizar este prato!");
+      }
+    }
+  }
+
+  async function handleDeleteDish() {
+    const confirmDeletion = confirm(
+      "Você tem certeza que deseja excluir este prato?",
+    );
+    if (!confirmDeletion) {
+      return;
+    }
+    try {
+      await api.delete(`/dishes/${params.id}`);
+      alert("Prato deletado com sucesso.");
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        return alert(error.response.data.message);
+      } else {
+        return alert("Não foi possível excluir este prato.");
       }
     }
   }
@@ -68,33 +91,37 @@ export function New() {
       <form className="flex flex-1 flex-col p-6">
         <TextButton />
 
-        <h1 className="text-3xl font-medium leading-relaxed">Novo Prato</h1>
+        <h1 className="text-3xl font-medium leading-relaxed">Editar prato</h1>
 
         <div className="flex flex-col md:flex-row md:gap-8">
           <div className="mt-4 flex flex-col gap-2 md:basis-[30%]">
-            <label htmlFor="new-dish-image-input">Imagem do prato</label>
-            <label htmlFor="new-dish-image-input">
+            <label htmlFor="edit-dish-image-input">Imagem do prato</label>
+            <label htmlFor="edit-dish-image-input">
               <span className="group flex cursor-pointer items-center justify-center gap-2 rounded-sm bg-dark-900 p-2">
                 <Upload className="transition-all ease-in-out group-hover:scale-125 group-hover:text-tomato-300" />
                 Escolher imagem...
               </span>
-              <input type="file" id="new-dish-image-input" className="hidden" />
+              <input
+                type="file"
+                id="edit-dish-image-input"
+                className="hidden"
+              />
             </label>
           </div>
 
           <div className="mt-4 flex flex-col gap-2 md:basis-[35%]">
-            <label htmlFor="new-dish-name">Nome</label>
+            <label htmlFor="edit-dish-name">Nome</label>
             <Input
-              id="new-dish-name"
+              id="edit-dish-name"
               placeholder="Ex.: Salada Ceasar"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           <div className="mt-4 flex flex-col gap-2 md:basis-[35%]">
-            <label htmlFor="new-dish-categories">Categoria</label>
+            <label htmlFor="edit-dish-categories">Categoria</label>
             <select
-              id="new-dish-categories"
+              id="edit-dish-categories"
               defaultValue={"default"}
               className="placeholder: rounded-sm bg-dark-900 p-2"
               onChange={(e) => setCategory(e.target.value)}
@@ -113,8 +140,8 @@ export function New() {
               {ingredients &&
                 ingredients.map((ingredient, index) => (
                   <TagInput
-                    value={ingredient}
                     key={String(index)}
+                    value={ingredient}
                     onClick={() => {
                       handleRemoveIngredient(ingredient);
                     }}
@@ -131,9 +158,10 @@ export function New() {
           </div>
 
           <div className="mt-4 flex flex-col gap-2 md:basis-1/4">
-            <label htmlFor="new-dish-price">Preço</label>
+            <label htmlFor="edit-dish-price">Preço</label>
             <Input
               placeholder="R$ 00,00"
+              id="edit-dish-price"
               onChange={(e) => setPrice(e.target.value)}
               type="number"
             />
@@ -141,19 +169,25 @@ export function New() {
         </div>
 
         <div className="mt-4 flex flex-col gap-2">
-          <label htmlFor="new-dish-description">Descrição</label>
+          <label htmlFor="edit-dish-description">Descrição</label>
           <Textarea
-            id="new-dish-description"
+            id="edit-dish-description"
             placeholder="Fale brevemente sobre o prato, seus ingredientes e sua composição."
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
-        <div className="mt-6 md:max-w-[300px]">
+        <div className="mt-6 flex items-center gap-8 md:max-w-[600px]">
           <Button
             type="button"
-            title={loading ? "Criando prato..." : "Salvar alterações"}
-            onClick={handleNewDish}
+            title="Excluir prato"
+            bgColor="bg-dark-900"
+            onClick={handleDeleteDish}
+          />
+          <Button
+            type="button"
+            title={loading ? "Salvando alterações... " : "Salvar alterações"}
+            onClick={handleUpdateDish}
           />
         </div>
       </form>

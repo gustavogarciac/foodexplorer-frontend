@@ -1,13 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import logoMobile from "../assets/logoMobile.svg";
 import { LogOut, Menu, Receipt, Search, X } from "lucide-react";
 import { Input } from "./Input";
 import { Footer } from "./Footer";
 
+import { useAuth } from "../hooks/auth";
+
 export function Header({ search }) {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
   function handleSignOut() {
-    return;
+    const logoutConfirmation = confirm(
+      "Você tem certeza que deseja sair do sistema?",
+    );
+    if (logoutConfirmation) {
+      navigate("/");
+      signOut();
+    } else {
+      return;
+    }
   }
 
   function handleSidebar() {
@@ -52,13 +65,13 @@ export function Header({ search }) {
         )}
 
         <button className="bg-transparent">
-          <LogOut className="hidden sm:block" />
+          <LogOut className="hidden sm:block" onClick={handleSignOut} />
         </button>
       </div>
 
       {/* Sidebar */}
       <aside
-        className="fixed bottom-0 left-[-100%] top-0 w-screen bg-dark-400 transition-all duration-500 md:hidden"
+        className="fixed bottom-0 left-[-100%] top-0 z-20 w-screen bg-dark-400 transition-all duration-500 md:hidden"
         id="sidebar"
       >
         <div className="bg-dark-700 p-6">

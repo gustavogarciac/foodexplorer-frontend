@@ -15,7 +15,7 @@ export function TagInput({ isNew, value, onClick, ...rest }) {
         className={`max-w-[100px] bg-transparent capitalize text-zinc-200 outline-none`}
       />
 
-      <button>
+      <button type="button" onClick={onClick}>
         {isNew ? (
           <Plus className="transition-all ease-in-out hover:scale-125 hover:text-green-600" />
         ) : (
