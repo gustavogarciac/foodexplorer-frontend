@@ -8,7 +8,7 @@ import { Footer } from "./Footer";
 import { useAuth } from "../hooks/auth";
 
 export function Header({ search }) {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
 
   function handleSignOut() {
@@ -29,7 +29,6 @@ export function Header({ search }) {
     sidebar.classList.toggle("left-[-100%]");
     sidebar.classList.toggle("left-0");
   }
-  const admin = true;
   return (
     <header className="flex items-center justify-between gap-16 bg-dark-600 p-6 sm:px-6 sm:py-4 md:px-[120px] md:py-6">
       <div className="md:hidden">
@@ -46,11 +45,17 @@ export function Header({ search }) {
       </Link>
 
       <div className="hidden flex-1 md:block">
-        <Input icon={<Search />} />
+        <Input
+          icon={<Search />}
+          placeholder="Busque por pratos ou ingredientes"
+          onChange={(e) => {
+            search(e.target.value);
+          }}
+        />
       </div>
 
       <div className="flex items-center space-x-6">
-        {admin ? (
+        {user.isAdmin ? (
           <Link
             to="/new"
             className="hidden max-w-fit items-center rounded-md bg-red-600 p-2 sm:grid"
@@ -92,7 +97,7 @@ export function Header({ search }) {
 
           <nav>
             <ul className="mt-5 space-y-5">
-              {admin && (
+              {user.isAdmin && (
                 <li className="cursor-pointer border-b border-b-light-700 py-3 text-xl hover:text-slate-400">
                   <Link to="/new">Novo prato</Link>
                 </li>

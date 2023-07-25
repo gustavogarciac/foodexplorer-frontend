@@ -3,14 +3,29 @@ import { Footer } from "../components/Footer";
 import { TextButton } from "../components/TextButton";
 import { Button } from "../components/Button";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import DishImage from "../assets/Dish.png";
 import { Minus, Plus, Receipt } from "lucide-react";
 import { Counter } from "../components/Counter";
+import { api } from "../services/api";
+import { useEffect, useState } from "react";
+import { Tag } from "../components/Tag";
+import { useAuth } from "../hooks/auth";
 
 export function Details() {
-  const admin = false;
+  const params = useParams();
+  const [data, setData] = useState({});
+  const { user } = useAuth();
+
+  useEffect(() => {
+    async function fetchDish() {
+      const response = await api.get(`/dishes/${params.id}`);
+      setData(response.data);
+    }
+    fetchDish();
+  }, []);
+
   return (
     <div className="flex h-screen flex-col">
       <Header />
@@ -27,47 +42,30 @@ export function Details() {
           <div className="flex flex-col">
             <div className="flex flex-col text-center">
               <h2 className="text mb-8 mt-4 text-3xl font-medium leading-none">
-                Salada Ravanello
+                {data.name && data.name}
               </h2>
-              <span>
-                Rabanetes, folhas verdes e molho agridoce salpicados com
-                gergelim
-              </span>
+              <span>{data && data.description}</span>
             </div>
 
             {/* Ingredients */}
             <div className="mt-4 flex flex-wrap gap-3">
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                alface
-              </span>
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                cebola
-              </span>
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                pão naan
-              </span>
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                pepino
-              </span>
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                rabanete
-              </span>
-              <span className="rounded-md bg-dark-1000 p-2 lowercase">
-                tomate
-              </span>
+              {data.ingredients &&
+                data.ingredients.map((ingredient, index) => (
+                  <Tag key={String(index)} name={ingredient.name} />
+                ))}
             </div>
 
             {/* CTA */}
-            {!admin ? (
+            {!user.isAdmin ? (
               <div className="mt-5 flex items-center justify-center gap-4 md:justify-evenly">
                 <Counter />
 
                 <div className="w-[200px]">
-                  <Button title={`pedir R$25,00`} icon={<Receipt />} />
+                  <Button title={`pedir R$${data.price}`} icon={<Receipt />} />
                 </div>
               </div>
             ) : (
-              <Link to="/edit" className="mt-6 max-w-[250px]">
+              <Link to={`/edit/${params.id}`} className="mt-6 max-w-[250px]">
                 <Button title="Editar prato" />
               </Link>
             )}

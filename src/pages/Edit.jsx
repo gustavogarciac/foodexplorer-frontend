@@ -6,7 +6,7 @@ import { TagInput } from "../components/TagInput";
 import { Textarea } from "../components/Textarea";
 import { Button } from "../components/Button";
 import { Footer } from "../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useNavigate, useParams } from "react-router-dom";
 
