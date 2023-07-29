@@ -5,7 +5,7 @@ import { Button } from "../components/Button";
 
 import { Link, useParams } from "react-router-dom";
 
-import DishImage from "../assets/Dish.png";
+import defaultDishImage from "../assets/Dish.png";
 import { Minus, Plus, Receipt } from "lucide-react";
 import { Counter } from "../components/Counter";
 import { api } from "../services/api";
@@ -18,6 +18,10 @@ export function Details() {
   const [data, setData] = useState({});
   const { user } = useAuth();
 
+  const dishImage = data.image
+    ? `${api.defaults.baseURL}/files/${data.image}`
+    : defaultDishImage;
+
   useEffect(() => {
     async function fetchDish() {
       const response = await api.get(`/dishes/${params.id}`);
@@ -27,14 +31,14 @@ export function Details() {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 space-y-5 p-10 md:px-[120px]">
         <TextButton />
 
-        <div className="flex flex-col items-center space-y-2 md:flex-row md:justify-center md:gap-10">
+        <div className="flex flex-col items-center space-y-2 md:flex-row md:justify-center md:gap-12">
           <img
-            src={DishImage}
+            src={dishImage}
             alt="Foto Salada Ravanello"
             className="md:w-[350px]"
           />

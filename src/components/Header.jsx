@@ -93,6 +93,9 @@ export function Header({ search }) {
           <Input
             placeholder="Busque por pratos ou ingredientes"
             icon={<Search />}
+            onChange={(e) => {
+              search(e.target.value);
+            }}
           />
 
           <nav>
