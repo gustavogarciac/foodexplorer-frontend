@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -34,10 +31,26 @@ export default {
         "cake-200": "rgba(130,243,255,1)",
       },
       fontFamily: {
-        'roboto': `"Roboto", sans-serif`,
-        'poppins': `"Poppins", sans-serif`
-      }
+        roboto: `"Roboto", sans-serif`,
+        poppins: `"Poppins", sans-serif`,
+      },
+      keyframes: {
+        enteringTop: {
+          "0%": { transform: "translateY(-100%)", opacity: "0%" },
+        },
+        enteringLeft: {
+          "0%": { transform: "translateX(-100%)", opacity: "0%" },
+        },
+        enteringRight: {
+          "0%": { transform: "translateX(100%)", opacity: "0%" },
+        },
+      },
+      animation: {
+        "entering-from-top": "0.5s ease-in-out enteringTop 100ms backwards",
+        "entering-from-left": "1s ease-in-out enteringLeft 400ms backwards",
+        "entering-from-right": "1s ease-in-out enteringLeft 400ms backwards",
+      },
     },
   },
   plugins: [],
-}
+};

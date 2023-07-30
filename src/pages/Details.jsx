@@ -40,11 +40,11 @@ export function Details() {
           <img
             src={dishImage}
             alt="Foto Salada Ravanello"
-            className="md:w-[350px]"
+            className="rounded-full object-cover md:h-[350px] md:w-[350px]"
           />
 
           <div className="flex flex-col">
-            <div className="flex flex-col text-center">
+            <div className="flex flex-col">
               <h2 className="text mb-8 mt-4 text-3xl font-medium leading-none">
                 {data.name && data.name}
               </h2>

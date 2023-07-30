@@ -30,7 +30,7 @@ export function Header({ search }) {
     sidebar.classList.toggle("left-0");
   }
   return (
-    <header className="flex items-center justify-between gap-16 bg-dark-600 p-6 sm:px-6 sm:py-4 md:px-[120px] md:py-6">
+    <header className="flex animate-entering-from-top items-center justify-between gap-16 bg-dark-600 p-6 sm:px-6 sm:py-4 md:px-[120px] md:py-6">
       <div className="md:hidden">
         <button className="grid items-center">
           <Menu onClick={handleSidebar} />

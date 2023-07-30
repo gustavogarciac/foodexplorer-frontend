@@ -32,7 +32,7 @@ export function SignUp() {
   }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-evenly">
+    <div className="flex min-h-screen w-screen items-center justify-evenly">
       <div className="hidden md:flex">
         <img src={logo} alt="Logo Food Explorer" />
       </div>

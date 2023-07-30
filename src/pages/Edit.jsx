@@ -88,7 +88,7 @@ export function Edit() {
   }
 
   return (
-    <div className="max-w-screen flex h-screen flex-col justify-between">
+    <div className="max-w-screen flex min-h-screen flex-col justify-between">
       <Header />
 
       {user && user.isAdmin ? (

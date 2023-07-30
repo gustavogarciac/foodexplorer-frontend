@@ -40,6 +40,12 @@ export function New() {
       await api.post("/dishes", formData);
       alert("Prato criado com sucesso!");
       setLoading(false);
+      setName("");
+      setImage(null);
+      setCategory("");
+      setIngredients([]);
+      setPrice("");
+      setDescription("");
     } catch (error) {
       setLoading(false);
       if (error.response) {
@@ -69,7 +75,7 @@ export function New() {
   }
 
   return (
-    <div className="max-w-screen flex h-screen flex-col justify-between">
+    <div className="max-w-screen flex min-h-screen flex-col justify-between">
       <Header />
 
       {user && user.isAdmin ? (

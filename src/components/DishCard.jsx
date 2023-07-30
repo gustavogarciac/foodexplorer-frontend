@@ -20,11 +20,11 @@ export function DishCard({ data, ...rest }) {
       <img
         src={dishImage}
         alt="Foto do Prato"
-        className="m-auto max-w-[88px]"
+        className="m-auto h-[88px] w-[88px] rounded-full object-cover"
       />
       <Link
         to={`/details/${data.id}`}
-        className="mt-2 flex cursor-pointer items-center gap-1 leading-relaxed"
+        className="mt-2 flex cursor-pointer items-center gap-1 leading-relaxed hover:underline"
       >
         {data.name}
         <ArrowRight className="w-[15px]" />

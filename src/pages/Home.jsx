@@ -23,7 +23,7 @@ export function Home() {
       <Header search={setSearch} />
       <main className="flex-1 p-6 md:px-[120px]">
         {/* Banner */}
-        <div className="relative z-0 mt-5 flex flex-col-reverse items-center justify-center gap-2 rounded-md bg-gradient-to-b from-dark-900 to-dark-600 p-2 sm:flex-row md:justify-evenly">
+        <div className="relative z-0 mt-5 flex animate-entering-from-left flex-col-reverse items-center justify-center gap-2 rounded-md bg-gradient-to-b from-dark-900 to-dark-600 p-2 sm:flex-row md:justify-evenly">
           <img
             src={banner}
             alt="Banner FoodExplorer"
@@ -40,11 +40,11 @@ export function Home() {
           </div>
         </div>
 
-        <div>
+        <div className="animate-entering-from-right">
           <h2 className="mb-5 mt-10 text-xl font-medium leading-relaxed">
             Refeições
           </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {dishes &&
               dishes
                 .filter((dish) => dish.category == "dishes")
@@ -53,7 +53,7 @@ export function Home() {
                 ))}
           </div>
         </div>
-        <div>
+        <div className="animate-entering-from-left">
           <h2 className="mb-5 mt-10 text-xl font-medium leading-relaxed">
             Sobremesas
           </h2>
@@ -66,7 +66,7 @@ export function Home() {
                 ))}
           </div>
         </div>
-        <div>
+        <div className="animate-entering-from-right">
           <h2 className="mb-5 mt-10 text-xl font-medium leading-relaxed">
             Bebidas
           </h2>

@@ -3,7 +3,6 @@ import { Details } from "../pages/Details";
 import { New } from "../pages/New";
 import { Edit } from "../pages/Edit";
 import { Home } from "../pages/Home";
-import { Test } from "../pages/Test";
 
 export function AppRoutes() {
   return (
@@ -12,7 +11,6 @@ export function AppRoutes() {
       <Route path="/details/:id" element={<Details />} />
       <Route path="/new" element={<New />} />
       <Route path="/edit/:id" element={<Edit />} />
-      <Route path="/test" element={<Test />} />
     </Routes>
   );
 }
