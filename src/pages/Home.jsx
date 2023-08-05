@@ -57,7 +57,7 @@ export function Home() {
           <h2 className="mb-5 mt-10 text-xl font-medium leading-relaxed">
             Sobremesas
           </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {dishes &&
               dishes
                 .filter((dish) => dish.category == "dessert")
@@ -70,7 +70,7 @@ export function Home() {
           <h2 className="mb-5 mt-10 text-xl font-medium leading-relaxed">
             Bebidas
           </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {dishes &&
               dishes
                 .filter((dish) => dish.category == "drinks")

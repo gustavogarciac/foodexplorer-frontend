@@ -12,11 +12,16 @@ import { api } from "../services/api";
 import { useEffect, useState } from "react";
 import { Tag } from "../components/Tag";
 import { useAuth } from "../hooks/auth";
+import { useCartContext } from "../hooks/cart";
 
 export function Details() {
   const params = useParams();
   const [data, setData] = useState({});
   const { user } = useAuth();
+  const { addDishToCart } = useCartContext();
+
+  const [quantity, setQuantity] = useState(1);
+  const orderPrice = (quantity * data.price).toFixed(2);
 
   const dishImage = data.image
     ? `${api.defaults.baseURL}/files/${data.image}`
@@ -62,10 +67,14 @@ export function Details() {
             {/* CTA */}
             {!user.isAdmin ? (
               <div className="mt-5 flex items-center justify-center gap-4 md:justify-evenly">
-                <Counter />
+                <Counter quantity={quantity} setQuantity={setQuantity} />
 
                 <div className="w-[200px]">
-                  <Button title={`pedir R$${data.price}`} icon={<Receipt />} />
+                  <Button
+                    title={`pedir R$${orderPrice}`}
+                    icon={<Receipt />}
+                    onClick={() => addDishToCart(data, quantity)}
+                  />
                 </div>
               </div>
             ) : (

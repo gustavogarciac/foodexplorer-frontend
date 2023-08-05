@@ -4,11 +4,14 @@ import { Routes } from "./router";
 import "./index.css";
 
 import { AuthProvider } from "./hooks/auth";
+import { CartProvider } from "./hooks/cart";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <Routes />
+      <CartProvider>
+        <Routes />
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>,
 );

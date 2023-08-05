@@ -8,9 +8,15 @@ import { ArrowRight, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 import { api } from "../services/api";
+import { useCartContext } from "../hooks/cart";
+import { useState } from "react";
 
 export function DishCard({ data, ...rest }) {
   const { user } = useAuth();
+  const { addDishToCart } = useCartContext();
+
+  const [quantity, setQuantity] = useState(0);
+
   const dishImage = data.image
     ? `${api.defaults.baseURL}/files/${data.image}`
     : defaultDishImage;
@@ -35,9 +41,12 @@ export function DishCard({ data, ...rest }) {
             R$ {data.price}
           </span>
           <div className="my-2 flex items-center justify-center">
-            <Counter />
+            <Counter quantity={quantity} setQuantity={setQuantity} />
           </div>
-          <Button title="incluir" />
+          <Button
+            title="incluir"
+            onClick={() => addDishToCart(data, quantity)}
+          />
         </div>
       ) : (
         <div className="mt-3 w-full space-y-4">
