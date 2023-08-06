@@ -13,7 +13,10 @@ export function Home() {
 
   useEffect(() => {
     async function fetchDishes() {
-      const response = await api.get(`/dishes/?name=${search}`);
+      const response = await api.get(
+        `/dishes/?name=${search}&ingredient=${search}`,
+      );
+      console.log(response);
       setDishes(response.data);
     }
     fetchDishes();
