@@ -4,7 +4,7 @@ In this repository you can acess the frontend code of the FoodExplorer project. 
 
 ## ✨ Live Preview
 
-You can access the live preview clicking [here]().
+You can access the live preview clicking [here](https://gustavogarciac-foodexplorer.netlify.app/).
 
 ## Preview
 
