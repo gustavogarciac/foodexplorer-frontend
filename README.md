@@ -2,9 +2,9 @@
 
 In this repository you can acess the frontend code of the FoodExplorer project. It's a full stack project that consists in a restaurant website where you can list, add, remove and update your company dishes. You can set a title, a price, a description and some ingredients that will help your clients see your products and buy the dishes you cook. Feel free to use this project for your own purposes.
 
-## ✨ Live Preview
+## ✨ Live Deploy
 
-You can access the live preview clicking [here](https://gustavogarciac-foodexplorer.netlify.app/).
+You can access the live deploy clicking [here](https://gustavogarciac-foodexplorer.netlify.app/).
 
 ## Preview
 
